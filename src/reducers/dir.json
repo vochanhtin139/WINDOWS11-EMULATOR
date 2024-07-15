@@ -279,7 +279,8 @@
                     "type": "web-files",
                     "info": {
                       "spid": "%file%",
-                      "icon": "docs"
+                      "icon": "docs",
+                      "url": "https://windows11-emulator.onrender.com/"
                     }
                   }
                 }

@@ -12,6 +12,8 @@ export const EdgeMenu = () => {
   const [hist, setHist] = useState(["https://bing.com", "https://bing.com"]);
   const dispatch = useDispatch();
 
+  console.log('dispatch', dispatch);
+
   const iframes = {
     "https://www.google.com/webhp?igu=1": "Google",
     "https://bing.com": "Bing",
@@ -104,11 +106,11 @@ export const EdgeMenu = () => {
       setTyping(false);
       setUrl(wnapp.url);
       setPdfPath(null);
-      dispatch({ type: "EDGELINK" });
+      // dispatch({ type: "EDGELINK", payload: wnapp.url });
     } else if (wnapp.pdfPath) {
       setPdfPath(wnapp.pdfPath);
       setUrl(null);
-      dispatch({ type: "EDGELINK" });
+      // dispatch({ type: "EDGELINK", payload: wnapp.pdfPath });
     }
     else {
       setOpenProject(false);

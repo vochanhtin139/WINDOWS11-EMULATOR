@@ -31,6 +31,10 @@ const appReducer = (state = defState, action) => {
       var obj = { ...tmpState["edge"] };
       if (action.payload && action.payload.startsWith("http")) {
         obj.url = action.payload;
+        obj.pdfPath = null;
+      } else if (action.payload && action.payload.startsWith("/cv")) {
+        obj.pdfPath = action.payload;
+        obj.url = null;
       } else if (action.payload && action.payload.length != 0) {
         obj.url = "https://www.bing.com/search?q=" + action.payload;
       } else {
@@ -95,6 +99,7 @@ const appReducer = (state = defState, action) => {
       var obj = { ...tmpState["edge"] };
       if (action.payload && action.payload.startsWith("/cv")) {
         obj.pdfPath = action.payload;
+        obj.url = null;
       } else if (action.payload && action.payload.length != 0) {
         obj.url = "https://www.bing.com/search?q=" + action.payload;
       } else {
@@ -122,6 +127,7 @@ const appReducer = (state = defState, action) => {
       var obj = { ...tmpState["edge"] };
       if (action.payload && action.payload.startsWith("http")) {
         obj.url = action.payload;
+        obj.pdfPath = null;
       } else if (action.payload && action.payload.length != 0) {
         obj.url = "https://www.bing.com/search?q=" + action.payload;
       } else {

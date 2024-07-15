@@ -280,6 +280,7 @@ export const handleFileOpen = (id) => {
       store.dispatch({ type: "FILEDIR", payload: item.id });
     } else if (item.type == "cv-files") {
       // store.dispatch({ type: "MSEDGE", payload: "full" });
+      // set dispatch url null
       store.dispatch({ type: "OPEN_PDF", payload: item.info.pdfPath });
     } 
     else if (item.type == "web-files") {
