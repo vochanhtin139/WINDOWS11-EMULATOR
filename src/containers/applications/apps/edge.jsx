@@ -6,6 +6,8 @@ export const EdgeMenu = () => {
   const wnapp = useSelector((state) => state.apps.edge);
   const [url, setUrl] = useState("https://www.google.com/?igu=1");
   const [ierror, setErr] = useState(true);
+  const [pdfPath, setPdfPath] = useState(null);
+  const [openProject, setOpenProject] = useState(false);
   const [isTyping, setTyping] = useState(false);
   const [hist, setHist] = useState(["https://bing.com", "https://bing.com"]);
   const dispatch = useDispatch();
@@ -84,7 +86,6 @@ export const EdgeMenu = () => {
   const typing = (e) => {
     if (!isTyping) {
       setTyping(true);
-      console.log([url, url]);
       setHist([url, url]);
     }
     setUrl(e.target.value);
@@ -94,13 +95,25 @@ export const EdgeMenu = () => {
     setErr(false);
   };
 
+  // console.log('wnapp', wnapp);
+
   useEffect(() => {
+    console.log('wnapp.url', wnapp.url);
     if (wnapp.url) {
+      setOpenProject(true);
       setTyping(false);
       setUrl(wnapp.url);
+      setPdfPath(null);
+      dispatch({ type: "EDGELINK" });
+    } else if (wnapp.pdfPath) {
+      setPdfPath(wnapp.pdfPath);
+      setUrl(null);
       dispatch({ type: "EDGELINK" });
     }
-  });
+    else {
+      setOpenProject(false);
+    }
+  }, [wnapp.url, wnapp.pdfPath]);
 
   return (
     <div
@@ -191,40 +204,78 @@ export const EdgeMenu = () => {
           </div>
           <div className="w-full bookbar py-2">
             <div className="flex">
-              {Object.keys(iframes).map((mark, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="flex handcr items-center ml-2 mr-1 prtclk"
-                    onClick={action}
-                    data-payload={6}
-                    data-url={mark}
-                  >
-                    <Icon
-                      className="mr-1"
-                      ext
-                      width={16}
-                      src={
-                        iframes[mark][0] != "\n"
-                          ? new URL(mark).origin + "/favicon.ico"
-                          : favicons[mark]
-                      }
-                    />
-                    <div className="text-xs">{iframes[mark].trim()}</div>
-                  </div>
-                );
-              })}
+              {Object.keys(iframes).map((mark, i) => (
+                <div
+                  key={i}
+                  className="flex handcr items-center ml-2 mr-1 prtclk"
+                  onClick={action}
+                  data-payload={6}
+                  data-url={mark}
+                >
+                  <Icon
+                    className="mr-1"
+                    ext
+                    width={16}
+                    src={
+                      iframes[mark][0] !== "\n"
+                        ? new URL(mark).origin + "/favicon.ico"
+                        : favicons[mark]
+                    }
+                  />
+                  <div className="text-xs">{iframes[mark].trim()}</div>
+                </div>
+              ))}
             </div>
           </div>
-          {/* <div className="siteFrame flex-grow overflow-hidden">
+          <div className="siteFrame flex-grow overflow-hidden">
             <LazyComponent show={!wnapp.hide}>
-              <iframe
+              {/* <iframe
                 src={!isTyping ? url : hist[0]}
                 id="isite"
-                frameborder="0"
+                frameBorder="0"
+                className="w-full h-full"
+                title="site"
+              ></iframe> */}
+              {pdfPath ? (
+              //   <iframe
+              //   src={!isTyping ? url : hist[0]}
+              //   id="isite"
+              //   frameBorder="0"
+              //   className="w-full h-full"
+              //   title="site"
+              // ></iframe>
+                <object
+                  data={pdfPath}
+                  // data={'/cv/Vo-Chanh-Tin-CV.pdf'}
+                  type="application/pdf"
+                  className="w-full h-full"
+                >
+                  <p>
+                    Alternative text - include a link{" "}
+                    <a href={pdfPath}>to the PDF!</a>
+                  </p>
+                </object>
+              ) : (
+                <iframe
+                // src={!isTyping ? url : hist[0]}
+                src={url}
+                id="isite"
+                frameBorder="0"
                 className="w-full h-full"
                 title="site"
               ></iframe>
+              // <object
+              //     // data={pdfPath}
+              //     data={'/cv/Vo-Chanh-Tin-CV.pdf'}
+              //     type="application/pdf"
+              //     className="w-full h-full"
+              //   >
+              //     <p>
+              //       Alternative text - include a link{" "}
+              //       <a href={pdfPath}>to the PDF!</a>
+              //     </p>
+              //   </object>
+              )}
             </LazyComponent>
 
             <div
@@ -244,19 +295,7 @@ export const EdgeMenu = () => {
                 other websites to show their content. <b>I cannot fix it</b>.
               </div>
             </div>
-          </div> */}
-          <object
-            data="/cv/Vo-Chanh-Tin-CV.pdf"
-            type="application/pdf"
-            className="siteFrame flex-grow overflow-hidden"
-          >
-            <p>
-              Alternative text - include a link{" "}
-              <a href="http://africau.edu/images/default/sample.pdf">
-                to the PDF!
-              </a>
-            </p>
-          </object>
+          </div>
         </div>
       </div>
     </div>

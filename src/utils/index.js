@@ -20,7 +20,8 @@ var { taskbar, desktop, pinned, recent } = {
     "Github",
     "Spotify",
     "Buy me a coffee",
-    "HeyDucks-CVs"
+    "HeyDucks-CVs",
+    "Projects",
   ],
   pinned: (localStorage.getItem("pinned") &&
     JSON.parse(localStorage.getItem("pinned"))) || [
@@ -63,7 +64,7 @@ export const taskApps = icons.filter((x) => taskbar.includes(x.name));
 
 export const desktopApps = icons
   .filter((x) => {
-    console.log(x)
+    // console.log(x)
     return desktop.includes(x.name)
   })
   .sort((a, b) => {

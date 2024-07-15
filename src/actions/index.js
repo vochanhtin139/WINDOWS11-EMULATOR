@@ -124,7 +124,7 @@ export const delApp = (act, menu) => {
       var app = Object.keys(apps).filter((x) => apps[x].action == data.type);
       if (app) {
         app = apps[app];
-        if (app.pwa == true || app.pwa == False /*what is that for ?*/) {
+        if (app.pwa == true || app.pwa == false /*what is that for ?*/) {
           store.dispatch({ type: app.action, payload: "close" });
           store.dispatch({ type: "DELAPP", payload: app.icon });
 
@@ -256,19 +256,41 @@ export const loadSettings = () => {
 };
 
 // mostly file explorer
+// export const handleFileOpen = (id) => {
+//   // const dispatch = useDispatch()
+//   // handle double click open
+//   const item = store.getState().files.data.getId(id);
+//   if (item != null) {
+//     if (item.type == "folder") {
+//       store.dispatch({ type: "FILEDIR", payload: item.id });
+//     }
+//     else if (item.type == "cv-files") {
+//       store.dispatch({ type: "MSEDGE", payload: "full" });
+//     } else if (item.type == "web-files") {
+//       store.dispatch({ type: "MSEDGE", payload: "full" });
+//     }
+//   }
+// };
+
 export const handleFileOpen = (id) => {
-  // const dispatch = useDispatch()
-  // handle double click open
   const item = store.getState().files.data.getId(id);
   if (item != null) {
     if (item.type == "folder") {
+      console.log("item", item.id, item)
       store.dispatch({ type: "FILEDIR", payload: item.id });
-    }
-    else if (item.type == "cv-files") {
-      store.dispatch({ type: "MSEDGE", payload: "full" });
+    } else if (item.type == "cv-files") {
+      // store.dispatch({ type: "MSEDGE", payload: "full" });
+      store.dispatch({ type: "OPEN_PDF", payload: item.info.pdfPath });
+    } 
+    else if (item.type == "web-files") {
+      console.log("web-files", item)
+      console.log("web-files2", item.info.url)
+      store.dispatch({ type: "OPEN_WEB", payload: item.info.url });
+      // store.dispatch({ type: "MSEDGE", payload: "full" });
     }
   }
 };
+
 
 export const flightMode = () => {
   store.dispatch({ type: "TOGGAIRPLNMD", payload: "" });

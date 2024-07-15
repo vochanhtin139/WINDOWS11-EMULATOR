@@ -1,3 +1,5 @@
+import path from "path";
+
 export const gene_name = () =>
   Math.random().toString(36).substring(2, 10).toUpperCase();
 
@@ -311,7 +313,17 @@ const apps = [
     name: "HeyDucks-CVs",
     icon: "folder",
     type: "app",
-    action: "EXPLORER"
+    action: "EXPLORER",
+    path: "C:\\Users\\Blue\\HeyDucks-CVs",
+    cpath: "C:\\Users\\Blue\\HeyDucks-CVs",
+  },
+  {
+    name: "Projects",
+    icon: "folder",
+    type: "app",
+    action: "EXPLORER",
+    path: "C:\\Users\\Blue\\Projects",
+    cpath: "C:\\Users\\Blue\\Projects",
   }
   // {
   //   name: "VoChanhTin-CV.pdf",

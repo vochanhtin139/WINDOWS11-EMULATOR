@@ -225,14 +225,61 @@
                 "name": "HeyDuck-CVs",
                 "info": {
                   "spid": "%onedrive%",
-                  "icon": "folder"
+                  "icon": "folder",
+                  "cpath": "C:\\Users\\Blue\\HeyDucks-CVs"
                 },
                 "data": {
                   "Vo-Chanh-Tin-CV.pdf": {
                     "type": "cv-files",
+                    "path": "/cv/Vo-Chanh-Tin-CV.pdf",
                     "info": {
                       "spid": "%file%",
-                      "icon": "pdf"
+                      "icon": "pdf",
+                      "pdfPath": "/cv/Vo-Chanh-Tin-CV.pdf"
+                    }
+                  },
+                  "CV_NguyenThaiDanSam.pdf": {
+                    "type": "cv-files",
+                    "path": "/cv/CV_NguyenThaiDanSam.pdf",
+                    "info": {
+                      "spid": "%file%",
+                      "icon": "pdf",
+                      "pdfPath": "/cv/CV_NguyenThaiDanSam.pdf"
+                    }
+                  },
+                  "QuynhPhanCV.pdf": {
+                    "type": "cv-files",
+                    "path": "/cv/QuynhPhanCV.pdf",
+                    "info": {
+                      "spid": "%file%",
+                      "icon": "pdf",
+                      "pdfPath": "/cv/QuynhPhanCV.pdf"
+                    }
+                  }
+                }
+              },
+              "Projects": {
+                "type": "folder",
+                "name": "Projects",
+                "info": {
+                  "spid": "%onedrive%",
+                  "icon": "folder",
+                  "path": "C:\\Users\\Blue\\Projects"
+                },
+                "data": {
+                  "Ads-Management": {
+                    "type": "web-files",
+                    "info": {
+                      "spid": "%file%",
+                      "icon": "docs",
+                      "url": "https://ads-management.onrender.com/"
+                    }
+                  },
+                  "Portfolio": {
+                    "type": "web-files",
+                    "info": {
+                      "spid": "%file%",
+                      "icon": "docs"
                     }
                   }
                 }

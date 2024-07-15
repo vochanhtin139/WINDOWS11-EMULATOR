@@ -101,6 +101,10 @@ export const Explorer = () => {
   const [searchtxt, setShText] = useState("");
   const dispatch = useDispatch();
 
+  console.log('files', files)
+  console.log('apps', apps)
+  console.log('wnapp', wnapp)
+
   const handleChange = (e) => setPath(e.target.value);
   const handleSearchChange = (e) => setShText(e.target.value);
 

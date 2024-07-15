@@ -50,11 +50,13 @@ export const DesktopApp = () => {
     <div className="desktopCont">
       {!deskApps.hide &&
         deskApps.apps.map((app, i) => {
+          // console.log('path', app)
           return (
             // to allow it to be focusable (:focus)
             <div key={i} className="dskApp" tabIndex={0}>
               <Icon
                 click={app.action}
+                // click={() => isFolder ? openFolder(app.path) : app.action}
                 className="dskIcon prtclk"
                 src={app.icon}
                 payload={app.payload || "full"}
