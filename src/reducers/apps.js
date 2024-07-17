@@ -142,11 +142,91 @@ const appReducer = (state = defState, action) => {
       tmpState["edge"] = obj;
       return tmpState;
 
+    case "EXPLORER":
+      var obj = { ...tmpState["explorer"] };
+      obj.dir = action.payload;
+      console.log("EXPLORER payload", action.payload)
+
+      if (action.payload == "full") {
+        obj.size = "full";
+        obj.hide = false;
+        obj.max = true;
+        tmpState.hz += 1;
+        obj.z = tmpState.hz;
+      } else if (action.payload == "close") {
+        obj.hide = true;
+        obj.max = null;
+        obj.z = -1;
+        tmpState.hz -= 1;
+      } else if (action.payload == "mxmz") {
+        obj.size = ["mini", "full"][obj.size != "full" ? 1 : 0];
+        obj.hide = false;
+        obj.max = true;
+        tmpState.hz += 1;
+        obj.z = tmpState.hz;
+      } else if (action.payload == "togg") {
+        if (obj.z != tmpState.hz) {
+          obj.hide = false;
+          if (!obj.max) {
+            tmpState.hz += 1;
+            obj.z = tmpState.hz;
+            obj.max = true;
+          } else {
+            obj.z = -1;
+            obj.max = false;
+          }
+        } else {
+          obj.max = !obj.max;
+          obj.hide = false;
+          if (obj.max) {
+            tmpState.hz += 1;
+            obj.z = tmpState.hz;
+          } else {
+            obj.z = -1;
+            tmpState.hz -= 1;
+          }
+        }
+      } else if (action.payload == "mnmz") {
+        obj.max = false;
+        obj.hide = false;
+        if (obj.z == tmpState.hz) {
+          tmpState.hz -= 1;
+        }
+        obj.z = -1;
+      } else if (action.payload == "resize") {
+        obj.size = "cstm";
+        obj.hide = false;
+        obj.max = true;
+        if (obj.z != tmpState.hz) tmpState.hz += 1;
+        obj.z = tmpState.hz;
+        obj.dim = action.dim;
+      } else if (action.payload == "front") {
+        obj.hide = false;
+        obj.max = true;
+        if (obj.z != tmpState.hz) {
+          tmpState.hz += 1;
+          obj.z = tmpState.hz;
+        }
+      } else if (action.payload.startsWith("C:/")) {
+        obj.dir = action.payload;
+        obj.size = "full";
+        obj.hide = false;
+        obj.max = true;
+        tmpState.hz += 1;
+        obj.z = tmpState.hz;
+      } else {
+        obj.size = "full";
+        obj.hide = false;
+        obj.max = true;
+        tmpState.hz += 1;
+        obj.z = tmpState.hz;
+      }
+
+      tmpState["explorer"] = obj;
+      return tmpState;
+
     default:
       var keys = Object.keys(state);
-      console.log("keys", keys)
-      console.log("action", action)
-      console.log("state", state)
       for (var i = 0; i < keys.length; i++) {
         var obj = state[keys[i]];
         if (obj.action == action.type) {
@@ -219,7 +299,8 @@ const appReducer = (state = defState, action) => {
         }
       }
       return state;
-  }
+  
+    }
 };
 
 export default appReducer;

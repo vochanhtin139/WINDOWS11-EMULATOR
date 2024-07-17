@@ -55,8 +55,8 @@ export const DesktopApp = () => {
             // to allow it to be focusable (:focus)
             <div key={i} className="dskApp" tabIndex={0}>
               <Icon
+                // onClick={null}
                 click={app.action}
-                // click={() => isFolder ? openFolder(app.path) : app.action}
                 className="dskIcon prtclk"
                 src={app.icon}
                 payload={app.payload || "full"}

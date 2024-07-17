@@ -312,18 +312,20 @@ const apps = [
   {
     name: "HeyDucks-CVs",
     icon: "folder",
-    type: "app",
+    type: "folder",
     action: "EXPLORER",
+    payload: "HeyDucks-CVs",
+    // payload: "C:\\Users\\Blue\\HeyDucks-CVs",
     path: "C:\\Users\\Blue\\HeyDucks-CVs",
-    cpath: "C:\\Users\\Blue\\HeyDucks-CVs",
   },
   {
     name: "Projects",
     icon: "folder",
-    type: "app",
+    type: "folder",
     action: "EXPLORER",
+    payload: "Projects",
+    // payload: "C:\\Users\\Blue\\Projects",
     path: "C:\\Users\\Blue\\Projects",
-    cpath: "C:\\Users\\Blue\\Projects",
   }
   // {
   //   name: "VoChanhTin-CV.pdf",

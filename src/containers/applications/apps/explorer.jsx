@@ -96,14 +96,24 @@ export const Explorer = () => {
   const apps = useSelector((state) => state.apps);
   const wnapp = useSelector((state) => state.apps.explorer);
   const files = useSelector((state) => state.files);
-  const fdata = files.data.getId(files.cdir);
+  let fdata = files.data.getId(files.cdir);
   const [cpath, setPath] = useState(files.cpath);
   const [searchtxt, setShText] = useState("");
   const dispatch = useDispatch();
 
-  console.log('files', files)
-  console.log('apps', apps)
-  console.log('wnapp', wnapp)
+  if (files.data && files.data.lookup) {
+    let targetFile = Object.values(files.data.lookup).find((item) => item.name === wnapp.dir);
+    console.log('targetFile', targetFile);
+    if (targetFile)
+      fdata = files.data.getId(targetFile.id);
+  } else {
+    console.log('files.data.lookup is undefined or null');
+  }
+  // console.log('files', files)
+  // console.log('fdata', fdata)
+  // console.log('wnapp', wnapp)
+  // console.log('wnapp.dir', wnapp.dir)
+  // console.log('cpath', cpath)
 
   const handleChange = (e) => setPath(e.target.value);
   const handleSearchChange = (e) => setShText(e.target.value);
@@ -222,7 +232,8 @@ export const Explorer = () => {
               <input
                 className="path-field"
                 type="text"
-                value={cpath}
+                // value={cpath}
+                value={wnapp.dir}
                 onChange={handleChange}
                 onKeyDown={handleEnter}
               />
@@ -240,7 +251,7 @@ export const Explorer = () => {
           </div>
           <div className="sec2">
             <NavPane />
-            <ContentArea searchtxt={searchtxt} />
+            <ContentArea searchtxt={searchtxt} fdata={fdata} />
           </div>
           <div className="sec3">
             <div className="item-count text-xs">{fdata.data.length} items</div>
@@ -269,13 +280,16 @@ export const Explorer = () => {
   );
 };
 
-const ContentArea = ({ searchtxt }) => {
+const ContentArea = ({ searchtxt, fdata }) => {
   const files = useSelector((state) => state.files);
   const special = useSelector((state) => state.files.data.special);
   const [selected, setSelect] = useState(null);
-  const fdata = files.data.getId(files.cdir);
+  // const fdata = files.data.getId(files.cdir);
   const dispatch = useDispatch();
   const sidepane = useSelector((state) => state.sidepane);
+
+  // console.log('files', files)
+  // console.log('fdata', fdata)
 
   const handleClick = (e) => {
     e.stopPropagation();

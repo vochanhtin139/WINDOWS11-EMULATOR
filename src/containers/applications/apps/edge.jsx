@@ -12,8 +12,6 @@ export const EdgeMenu = () => {
   const [hist, setHist] = useState(["https://bing.com", "https://bing.com"]);
   const dispatch = useDispatch();
 
-  console.log('dispatch', dispatch);
-
   const iframes = {
     "https://www.google.com/webhp?igu=1": "Google",
     "https://bing.com": "Bing",
@@ -100,7 +98,7 @@ export const EdgeMenu = () => {
   // console.log('wnapp', wnapp);
 
   useEffect(() => {
-    console.log('wnapp.url', wnapp.url);
+    // console.log('wnapp.url', wnapp.url);
     if (wnapp.url) {
       setOpenProject(true);
       setTyping(false);
