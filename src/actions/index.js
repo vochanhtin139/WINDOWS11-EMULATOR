@@ -274,6 +274,7 @@ export const loadSettings = () => {
 
 export const handleFileOpen = (id) => {
   const item = store.getState().files.data.getId(id);
+  console.log("item", item)
   if (item != null) {
     if (item.type == "folder") {
       console.log("item", item.id, item)
@@ -284,8 +285,6 @@ export const handleFileOpen = (id) => {
       store.dispatch({ type: "OPEN_PDF", payload: item.info.pdfPath });
     } 
     else if (item.type == "web-files") {
-      console.log("web-files", item)
-      console.log("web-files2", item.info.url)
       store.dispatch({ type: "OPEN_WEB", payload: item.info.url });
       // store.dispatch({ type: "MSEDGE", payload: "full" });
     }

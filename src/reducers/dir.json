@@ -282,6 +282,14 @@
                       "icon": "docs",
                       "url": "https://windows11-emulator.onrender.com/"
                     }
+                  },
+                  "Server Order Food": {
+                    "type": "app-files",
+                    "info": {
+                      "spid": "%file%",
+                      "icon": "desk",
+                      "url": "https://server-order-food.onrender.com/"
+                    }
                   }
                 }
               }

@@ -207,14 +207,16 @@ const appReducer = (state = defState, action) => {
           tmpState.hz += 1;
           obj.z = tmpState.hz;
         }
-      } else if (action.payload.startsWith("C:/")) {
+      } else if (action.payload == "Projects" || action.payload == "HeyDucks-CVs") {
         obj.dir = action.payload;
+        obj.path = "C:\\Users\\Blue\\" + action.payload;
         obj.size = "full";
         obj.hide = false;
         obj.max = true;
         tmpState.hz += 1;
         obj.z = tmpState.hz;
       } else {
+        obj.dir = null;
         obj.size = "full";
         obj.hide = false;
         obj.max = true;

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Icon, Image, ToolBar } from "../../../utils/general";
 import { dispatchAction, handleFileOpen } from "../../../actions";
 import "./assets/fileexpo.scss";
+import { use } from "i18next";
 
 const NavTitle = (props) => {
   var src = props.icon || "folder";
@@ -96,24 +97,33 @@ export const Explorer = () => {
   const apps = useSelector((state) => state.apps);
   const wnapp = useSelector((state) => state.apps.explorer);
   const files = useSelector((state) => state.files);
-  let fdata = files.data.getId(files.cdir);
+  // let fdata = files.data.getId(files.cdir);
+  const [fdata, setFdata] = useState(files.data.getId(files.cdir));
   const [cpath, setPath] = useState(files.cpath);
   const [searchtxt, setShText] = useState("");
   const dispatch = useDispatch();
 
-  if (files.data && files.data.lookup) {
-    let targetFile = Object.values(files.data.lookup).find((item) => item.name === wnapp.dir);
-    console.log('targetFile', targetFile);
-    if (targetFile)
-      fdata = files.data.getId(targetFile.id);
-  } else {
-    console.log('files.data.lookup is undefined or null');
-  }
+  console.log('wnapp.path', wnapp.path)
+
+  useEffect(() => {
+    console.log('wnapp.dir', wnapp.dir)
+    if (files.data && files.data.lookup) {
+      let targetFile = Object.values(files.data.lookup).find((item) => item.name === wnapp.dir);
+      console.log('targetFile', targetFile);
+      if (targetFile)
+        // fdata = files.data.getId(targetFile.id);
+        setFdata(files.data.getId(targetFile.id));
+      console.log('fdata2', fdata)
+    } else {
+      console.log('files.data.lookup is undefined or null');
+      // fdata = files.data.getId(files.cdir);
+      setFdata(files.data.getId(files.cdir));
+    }
+  }, [wnapp.dir, files.data, cpath]);
   // console.log('files', files)
-  // console.log('fdata', fdata)
-  // console.log('wnapp', wnapp)
-  // console.log('wnapp.dir', wnapp.dir)
-  // console.log('cpath', cpath)
+  console.log('fdata', fdata)
+  console.log('cpath', cpath)
+  console.log('wnapp', wnapp)
 
   const handleChange = (e) => setPath(e.target.value);
   const handleSearchChange = (e) => setShText(e.target.value);
@@ -177,6 +187,8 @@ export const Explorer = () => {
 
   useEffect(() => {
     setPath(files.cpath);
+    setFdata(files.data.getId(files.cdir));
+    wnapp.dir = files.cpath;
     setShText("");
   }, [files.cpath]);
 
